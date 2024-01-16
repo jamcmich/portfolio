@@ -175,8 +175,26 @@
   // console.log(await fetchAuthorizationCode());
   // console.log(await refreshAccessToken());
   // console.log(await fetchTopItems("artists"));
+
+  import spotifyTopArtists from "../data/top_artists.json";
+  
+  export let artists = spotifyTopArtists.items.map((artist) => ({
+    id: artist.id,
+    name: artist.name,
+    images: artist.images,
+    genres: artist.genres,
+  }));
 </script>
 
-<div>Hello world</div>
+<section class="section__spotify-widget">
+  <!-- Render each artist item -->
+  {#each artists as artist (artist.id)}
+    <div class="artists__wrapper">
+      <h2>{artist.name}</h2>
+      <img src={artist.images[2].url} alt={artist.name} />
+      <p>Genres: {artist.genres.join(', ')}</p>
+    </div>
+  {/each}
+</section>
 
 <style></style>
