@@ -26,11 +26,11 @@
  * ```
  */
 declare module '$env/static/private' {
-	export const VITE_SPOTIFY_CLIENT_ID: string;
-	export const VITE_SPOTIFY_CLIENT_SECRET: string;
-	export const VITE_SPOTIFY_CALLBACK_CODE: string;
-	export const VITE_SPOTIFY_REFRESH_TOKEN: string;
-	export const VITE_SPOTIFY_USER_ID: string;
+	export const SPOTIFY_CLIENT_ID: string;
+	export const SPOTIFY_CLIENT_SECRET: string;
+	export const SPOTIFY_CALLBACK_CODE: string;
+	export const SPOTIFY_REFRESH_TOKEN: string;
+	export const SPOTIFY_USER_ID: string;
 	export const MANPATH: string;
 	export const TERM_PROGRAM: string;
 	export const NODE: string;
@@ -134,11 +134,11 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
-		VITE_SPOTIFY_CLIENT_ID: string;
-		VITE_SPOTIFY_CLIENT_SECRET: string;
-		VITE_SPOTIFY_CALLBACK_CODE: string;
-		VITE_SPOTIFY_REFRESH_TOKEN: string;
-		VITE_SPOTIFY_USER_ID: string;
+		SPOTIFY_CLIENT_ID: string;
+		SPOTIFY_CLIENT_SECRET: string;
+		SPOTIFY_CALLBACK_CODE: string;
+		SPOTIFY_REFRESH_TOKEN: string;
+		SPOTIFY_USER_ID: string;
 		MANPATH: string;
 		TERM_PROGRAM: string;
 		NODE: string;

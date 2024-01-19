@@ -1,8 +1,11 @@
-<script>
+<script context="module">
   import SpotifyWidget from '../components/SpotifyWidget.svelte';
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+  export let data;
+  const { spotify } = data.props;
+  console.log(spotify);
+</script>
 
-<SpotifyWidget />
+<SpotifyWidget { spotify } />

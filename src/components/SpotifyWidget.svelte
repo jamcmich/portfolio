@@ -1,21 +1,13 @@
 <!-- SpotifyWidget.svelte -->
 
 <script>
-  import { onMount } from 'svelte';
-  import { fetchTopArtists } from '$lib/spotify_web_api.js';
-
-  export let artists;
-
-  onMount(async () => {
-    console.log('Fetching Spotify data on client side...');
-    artists = await fetchTopArtists();
-  });
+  export let spotify;
 </script>
 
 <section class="section__spotify-widget">
-  {#if artists}
+  {#if spotify}
     <!-- Render each artist item -->
-    {#each artists as artist (artist.id)}
+    {#each spotify.items as artist (artist.id)}
       <div class="artists__wrapper">
         <h2>{artist.name}</h2>
         <img src={artist.images[2].url} alt={artist.name} />

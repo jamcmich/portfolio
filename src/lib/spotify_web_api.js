@@ -1,10 +1,10 @@
+import 'dotenv/config';
 import axios from 'axios';
-import {
-  SPOTIFY_CLIENT_ID,
-  SPOTIFY_CLIENT_SECRET,
-  SPOTIFY_CALLBACK_CODE,
-  SPOTIFY_REFRESH_TOKEN,
-} from '$lib/env';
+
+const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
+const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
+const SPOTIFY_CALLBACK_CODE = process.env.SPOTIFY_CALLBACK_CODE;
+const SPOTIFY_REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN;
 
 const basicAuth = btoa(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).trim();
 const baseSpotifyUrl = 'https://api.spotify.com/v1';
@@ -49,8 +49,9 @@ export const fetchAuthorizationCode = async () => {
   }
 };
 
-// ... (similar refactoring for other functions)
 export const fetchAccessToken = async () => {
+  console.log('Fetching access token...');
+
   try {
     const url = "https://accounts.spotify.com/api/token";
     const params = new URLSearchParams({
@@ -73,6 +74,8 @@ export const fetchAccessToken = async () => {
 };
 
 export const refreshAccessToken = async () => {
+  console.log('Refreshing access token...');
+
   try {
     const url = "https://accounts.spotify.com/api/token";
 
@@ -96,7 +99,6 @@ export const refreshAccessToken = async () => {
 
 export const fetchTopArtists = async () => {
   console.log('Fetching top artists...');
-  console.log(SPOTIFY_REFRESH_TOKEN);
 
   try {
     const url = `${baseSpotifyUrl}/me/top/artists`;
@@ -108,10 +110,33 @@ export const fetchTopArtists = async () => {
       },
     });
 
-    console.log('API Response:', response.data);
-
     return response.data;
   } catch (error) {
-    console.error(new Error('Error fetching top artists: ' + error.message));
+    if (error.response.status === 401) {
+      console.error('Received 401 error.');
+      
+      const url = `${baseSpotifyUrl}/me/top/artists`;
+
+      // Refresh the access token
+      const refreshedToken = await refreshAccessToken();
+      
+      // Retry the original request with the new access token
+      if (refreshedToken.access_token) {
+        const retryResponse = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${refreshedToken.access_token}`,
+          },
+        });
+
+        return retryResponse.data;
+      } else {
+        // Handle other errors
+        console.log('Refreshed access token:'+ refreshedToken);
+        console.error('Error refreshing access token:'+ error.message);
+      }
+    } else {
+      // Handle other errors
+      console.error('Error fetching top artists: ' + error.message);
+    }
   }
 };
