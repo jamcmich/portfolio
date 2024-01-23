@@ -4,5 +4,8 @@
 	],
 	"/api/products": [
 		"src/routes/api/products/+server.ts"
+	],
+	"/api/product": [
+		"src/routes/api/product/+server.ts"
 	]
 }

@@ -5,7 +5,7 @@ import axios from 'axios';
 export const GET = async () => {
   try {
     // Make a secure GET request to the external API endpoint using Axios
-    const apiUrl = 'https://dummyjson.com/products';
+    const apiUrl = 'https://dummyjson.com/products/1';
     const response = await axios.get(apiUrl, {
       headers: {
         'Content-Type': 'application/json',
@@ -22,28 +22,5 @@ export const GET = async () => {
     }
   } catch (err) {
     error(500, 'Internal server error.');
-  }
-}
-
-export const POST = async ({ request }) => {
-  try {
-    // Extract data from the request body
-    const { body } = request;
-    // Perform any necessary validation or processing of the data
-
-    // Make an internal POST request using Axios
-    const apiUrl = 'https://dummyjson.com/products/add';
-    const axiosResponse = await axios.post(apiUrl, body, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    // Respond with the data from the internal API
-    return json(axiosResponse.data);
-  } catch (err) {
-    // Handle errors
-    console.error('Internal POST request error:', err);
-    return error(500, 'Internal server error');
   }
 }
