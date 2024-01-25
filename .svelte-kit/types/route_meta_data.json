@@ -7,5 +7,11 @@
 	],
 	"/api/product": [
 		"src/routes/api/product/+server.ts"
+	],
+	"/api/spotify/auth": [
+		"src/routes/api/spotify/auth/+server.ts"
+	],
+	"/api/spotify/top-artists": [
+		"src/routes/api/spotify/top-artists/+server.ts"
 	]
 }

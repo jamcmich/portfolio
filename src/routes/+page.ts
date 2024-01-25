@@ -23,9 +23,33 @@ export const load = async ({ fetch }) => {
     return data;
   }
 
+  const spotifyAuth = async () => {
+    const response = await fetch(`/api/spotify/auth`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const data = await response.json();
+    return data;
+  }
+
+  const fetchTopArtists = async () => {
+    const response = await fetch(`/api/spotify/top-artists`);
+    const data = await response.json();
+    return data;
+  }
+
+  // return {
+  //   spotifyAuth: await spotifyAuth(),
+  //   products: await fetchProducts(),
+  //   product: await fetchProduct(),
+  //   addedProducts: await addProduct(),
+  // }
+
   return {
-    products: await fetchProducts(),
-    product: await fetchProduct(),
-    addedProducts: await addProduct(),
+    spotify: {
+      topArtists: await fetchTopArtists(),
+    }
   }
 }
