@@ -37,19 +37,18 @@ export const load = async ({ fetch }) => {
   const fetchTopArtists = async () => {
     const response = await fetch(`/api/spotify/top-artists`);
     const data = await response.json();
+
+    // if (!data) {
+    //   await spotifyAuth();
+    //   await fetchTopArtists();
+    // }
+
     return data;
   }
 
-  // return {
-  //   spotifyAuth: await spotifyAuth(),
-  //   products: await fetchProducts(),
-  //   product: await fetchProduct(),
-  //   addedProducts: await addProduct(),
-  // }
-
   return {
     spotify: {
-      topArtists: await fetchTopArtists(),
+      artists: await fetchTopArtists(),
     }
   }
 }

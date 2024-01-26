@@ -1,15 +1,17 @@
 <script>
   export let data;
-  console.log(data.spotify.topArtists.items);
+  export let artists = data.spotify.artists.items;
+
+  console.log(data);
 </script>
 
 <div>
-  {#if data.spotify.topArtists.items.length > 0}
-    {#each data.spotify.topArtists.items as artist}
+  {#if artists && artists.length > 0}
+    {#each artists as artist}
       <div class="artist">
-        <img src="{artist.images[2].url}">
+        <img alt="" src="{artist.images[2].url}">
         <h3>{artist.name}</h3>
-        <p>{artist.genre}</p>
+        <p>{artist.genres}</p>
       </div>
     {/each}
   {/if}

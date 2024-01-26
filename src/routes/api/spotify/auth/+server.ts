@@ -11,15 +11,17 @@ export const POST = async () => {
   try {
     const encodedIdAndSecret = btoa(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`);
 
-    const apiUrl = `https://accounts.spotify.com/api/token`;
+    const baseUrl = `https://accounts.spotify.com/api/token`;
     const requestBody = `grant_type=refresh_token&refresh_token=${process.env.SPOTIFY_REFRESH_TOKEN}`;
 
-    const response = await axios.post(apiUrl, requestBody, {
+    const response = await axios.post(baseUrl, requestBody, {
       headers: {
         'Authorization': `Basic ${encodedIdAndSecret}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
+
+    console.log('Refreshing token... ', response.status)
 
     return new Response(JSON.stringify(response.data), { status: 200 });
   } catch (err) {
